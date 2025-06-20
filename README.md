@@ -1,4 +1,4 @@
-# Book-Manager
+```cpp
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -44,12 +44,8 @@ int main() {
         cin.ignore(); 
 
         switch (choice) {
-        case 1:
-            addBook(books, count);
-            break;
-        case 2:
-            listBooks(books, count);
-            break;
+        case 1: addBook(books, count); break;
+        case 2: listBooks(books, count); break;
         case 3: {
             char keyword[100];
             cout << "Введіть ключове слово: ";
@@ -57,9 +53,7 @@ int main() {
             searchByTitle(books, count, keyword);
             break;
         }
-        case 4:
-            sortByYear(books, count);
-            break;
+        case 4: sortByYear(books, count); break;
         case 5: {
             int id;
             cout << "Введіть ID книги для видалення: ";
@@ -67,22 +61,18 @@ int main() {
             deleteBook(books, count, id);
             break;
         }
-        case 6:
-            saveToFile(books, count, filename);
-            break;
+        case 6: saveToFile(books, count, filename); break;
         case 0:
             saveToFile(books, count, filename);
             cout << "Програма завершена.\n";
             break;
-        default:
-            cout << "Невірний вибір!\n";
+        default: cout << "Невірний вибір!\n";
         }
 
     } while (choice != 0);
 
     return 0;
 }
-
 
 void addBook(Book books[], int& count) {
     if (count >= MAX_BOOKS) {
@@ -121,7 +111,6 @@ void listBooks(const Book books[], int count) {
     }
 }
 
-
 void saveToFile(const Book books[], int count, const char* filename) {
     ofstream file(filename);
     if (!file) {
@@ -130,21 +119,19 @@ void saveToFile(const Book books[], int count, const char* filename) {
     }
     for (int i = 0; i < count; i++) {
         file << books[i].id << ";"
-            << books[i].title << ";"
-            << books[i].author << ";"
-            << books[i].pages << ";"
-            << books[i].year << "\n";
+             << books[i].title << ";"
+             << books[i].author << ";"
+             << books[i].pages << ";"
+             << books[i].year << "\n";
     }
     file.close();
     cout << "Книги збережено у файл.\n";
 }
 
-
 void loadFromFile(Book books[], int& count, const char* filename) {
     ifstream file(filename);
-    if (!file) {
-        return; 
-    }
+    if (!file) return;
+
     count = 0;
     while (!file.eof() && count < MAX_BOOKS) {
         char buffer[300];
@@ -154,7 +141,8 @@ void loadFromFile(Book books[], int& count, const char* filename) {
         char* token = strtok(buffer, ";");
         if (!token) continue;
         books[count].id = atoi(token);
-token = strtok(NULL, ";");
+
+        token = strtok(NULL, ";");
         if (!token) continue;
         strcpy(books[count].title, token);
 
@@ -175,7 +163,6 @@ token = strtok(NULL, ";");
     file.close();
 }
 
-
 void searchByTitle(const Book books[], int count, const char* keyword) {
     cout << "\n=== Результати пошуку ===\n";
     bool found = false;
@@ -193,7 +180,6 @@ void searchByTitle(const Book books[], int count, const char* keyword) {
         cout << "Нічого не знайдено.\n";
 }
 
-
 void sortByYear(Book books[], int count) {
     for (int i = 0; i < count - 1; i++) {
         for (int j = i + 1; j < count; j++) {
@@ -204,7 +190,6 @@ void sortByYear(Book books[], int count) {
     }
     cout << "Список відсортовано за роком.\n";
 }
-
 
 void deleteBook(Book books[], int& count, int id) {
     for (int i = 0; i < count; i++) {
@@ -218,3 +203,5 @@ void deleteBook(Book books[], int& count, int id) {
         }
     }
     cout << "Книга з таким ID не знайдена.\n";
+}
+```
